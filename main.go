@@ -102,7 +102,7 @@ func YAMLToJSON(data interface{}) (json.RawMessage, error) {
 	if err != nil {
 		return nil, err
 	}
-	b, err := json.Marshal(jm)
+	b, err := json.MarshalIndent(jm, "", "  ")
 	return json.RawMessage(b), err
 }
 
