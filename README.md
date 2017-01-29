@@ -11,7 +11,7 @@ go get -u github.com/casualjim/yaml2json
 ## Use
 
 ```
-sage of yaml2json:
+Usage of yaml2json:
 
   yaml2json [YAML FILE OR URL]
 
