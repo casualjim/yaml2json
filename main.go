@@ -17,32 +17,30 @@ import (
 const LoadHTTPTimeout = 30 * time.Second
 
 var (
-	output string
+	output  string
+	flagSet = flag.NewFlagSet("", flag.ExitOnError)
 )
 
 func init() {
-	flag.StringVar(&output, "output", "", "Write to the file instead of to stdout")
+	flagSet.StringVar(&output, "output", "", "Write to the file instead of to stdout")
 }
 
 func main() {
-	flag.Usage = func() {
+	flagSet.Usage = func() {
 		fmt.Fprintf(os.Stderr, "Usage of %s:\n\n", os.Args[0])
 		fmt.Fprintf(os.Stderr, "  %s [YAML FILE OR URL]\n\n", os.Args[0])
-		flag.PrintDefaults()
+		flagSet.PrintDefaults()
 	}
-	flag.Parse()
-
+	flagSet.Parse(os.Args[2:])
 	if len(os.Args) < 2 {
 		fmt.Fprintln(os.Stderr, "you need to provide the file path or url to load")
 		os.Exit(1)
 	}
-
 	json, err := YAMLDoc(os.Args[1])
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err.Error())
 		os.Exit(1)
 	}
-
 	if output == "" {
 		fmt.Println(string(json))
 	} else {
