@@ -31,11 +31,11 @@ func main() {
 		fmt.Fprintf(os.Stderr, "  %s [YAML FILE OR URL]\n\n", os.Args[0])
 		flagSet.PrintDefaults()
 	}
-	flagSet.Parse(os.Args[2:])
 	if len(os.Args) < 2 {
 		fmt.Fprintln(os.Stderr, "you need to provide the file path or url to load")
 		os.Exit(1)
 	}
+	flagSet.Parse(os.Args[2:])
 	json, err := YAMLDoc(os.Args[1])
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err.Error())
